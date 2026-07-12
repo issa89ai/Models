@@ -86,10 +86,23 @@ max_depth=None: train=1.0000, test=1.0000
   split, and the handful of misclassified-looking points near that border are
   the same ambiguous 8 samples identified in the tree diagram.
 
+## From-scratch split search (`find_best_split.py`)
+
+`sklearn.tree.DecisionTreeClassifier` hides its split-search logic inside compiled
+C/Cython code, so to actually *see* the feature/threshold scanning happen, we
+wrote a transparent from-scratch version: a loop over every feature column,
+inside which is a loop over every candidate threshold (midpoints between sorted
+unique values), computing weighted Gini for each candidate split and keeping
+whichever (feature, threshold) pair scored lowest. This reproduces, in plain
+readable Python, exactly the search sklearn performs internally for finding one
+split — and confirms the same winning root split found in the real tree.
+
 ## Files in this folder
 
 - `Assignment_1_DecisionTrees.ipynb` — original CS505 coursework notebook (full
   worked assignment, including a noise-robustness experiment not repeated here)
 - `test_tree.py` — our experiment script (Iris, varying `max_depth`, train vs test)
 - `visualize_tree.py` — generates the three plots discussed above
+- `find_best_split.py` — from-scratch reimplementation of sklearn's internal
+  best-split search, showing the feature/threshold scanning explicitly
 - `accuracy_vs_depth.png`, `tree_structure.png`, `decision_boundary.png` — saved plots
