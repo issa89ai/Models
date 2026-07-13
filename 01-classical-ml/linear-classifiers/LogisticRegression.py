@@ -82,7 +82,7 @@ class LogisticRegression():
         
     def train(self,X_train, Y_train, num_iterations = 1000, learning_rate = 0.05):
         #self.w, self.b = self.initialize_with_zeros(3072)
-        dim=3072
+        dim=X_train.shape[0]
         self.w = np.zeros((dim,1))
         self.b = 0
     

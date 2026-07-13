@@ -45,7 +45,8 @@ class SVM():
 
         sigma = self.sigma
         numClasses = np.max(y_train) + 1
-        self.W = sigma * np.random.randn(3072,numClasses)
+        numFeatures = X_train.shape[1]
+        self.W = sigma * np.random.randn(numFeatures,numClasses)
         
         for i in range(self.epochs):
             xBatch = None
