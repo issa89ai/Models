@@ -1,17 +1,15 @@
 # Roadmap: Models Studied in the Master's
 
-Full index of every model encountered in coursework, where the code lives now, and what's worth doing next to deepen each one. Status: `ported` = code copied as-is from coursework, `polished` = has its own full repo, `todo` = studied conceptually but not implemented standalone.
+Full index of every model encountered in coursework, where the code lives now, and what's worth doing next to deepen each one. Status: `ported` = code copied as-is from coursework, untouched; `completed` = worked through hands-on (run, visualized, and written up in that folder's `SUMMARY.md`); `polished` = has its own full repo; `todo` = studied conceptually but not implemented standalone.
 
 ## 01 — Classical ML
 
 | Model | Course | Location | Status | Next step |
 |---|---|---|---|---|
-| KNN (loop + vectorized) | CS596 A1 | `01-classical-ml/knn/` | ported | Benchmark loop vs vectorized on a real dataset; add k-selection via cross-validation |
-| Linear Classifier / Softmax / Perceptron / Logistic Regression | CS596 A1 | `01-classical-ml/linear-classifiers/` | ported | Consolidate into one sklearn-comparable benchmark script |
-| SVM (from scratch + PyTorch) | CS596 A1 | `01-classical-ml/linear-classifiers/` | ported | Compare from-scratch gradient vs `sklearn.svm.SVC` on same data |
-| Naive Bayes | CS566 (Pacman AI) | `01-classical-ml/naive-bayes-mira-pacman/` | ported | Re-run on a non-Pacman dataset (e.g. spam classification) to generalize the implementation |
-| MIRA / Perceptron (Pacman) | CS566 | `01-classical-ml/naive-bayes-mira-pacman/` | ported | Document the margin-update rule; compare convergence vs plain perceptron |
-| Decision Trees | CS505 A1 | `01-classical-ml/decision-trees/` | ported | Add pruning + compare gini vs entropy split criteria |
+| KNN (loop + vectorized) | CS596 A1 | `01-classical-ml/knn/` | completed | Try on a larger/higher-dimensional dataset to see how the best k scales with data size in practice |
+| Perceptron / SVM / Softmax / Logistic Regression | CS596 A1 | `01-classical-ml/linear-classifiers/` | completed | Try a genuinely non-linearly-separable 2D toy dataset to visualize exactly where a straight-line boundary fails |
+| Naive Bayes | CS566 (Pacman AI) | `01-classical-ml/naive-bayes/` | completed | Try on a text dataset (e.g. spam classification), where the independence assumption is a more natural fit than on correlated numeric features |
+| Decision Trees | CS505 A1 | `01-classical-ml/decision-trees/` | completed | Add pruning + compare gini vs entropy split criteria |
 | Linear/LASSO/Logistic Regression | CS504 | `01-classical-ml/regression/` | ported | Cross-language comparison doc: same dataset in R vs Python vs PyTorch vs sklearn |
 | SVM (theory only, CS596 lecture) | CS596 | — | todo | Kernel trick demo (RBF vs linear) on non-linearly separable toy data |
 | Bayesian Decision Theory / MLE | CS509 lectures | — | todo | Small notebook deriving MLE for Gaussian, compare to sklearn estimate |

@@ -1,12 +1,12 @@
 # Models
 
-A single home for every model/algorithm implemented across my Master's in Computer Science (Winter 2024 – Fall 2025), organized by ML paradigm rather than by course. Each subfolder holds the original assignment/project code, ported as-is from the course materials.
+A single home for every model/algorithm studied across my Master's in Computer Science (Winter 2024 – Fall 2025), organized by ML paradigm rather than by course. Each subfolder holds the original assignment/project code plus hands-on experiments, visualizations, and a `SUMMARY.md` written while working through the model with an AI tutor — not just a static archive.
 
 See [ROADMAP.md](ROADMAP.md) for the full model-to-course index and suggested next steps for each area.
 
 ## Structure
 
-- `01-classical-ml/` — KNN, linear classifiers (SVM, Softmax, Perceptron, Logistic Regression), Naive Bayes, MIRA, Decision Trees, Regression (Linear/LASSO/Logistic)
+- `01-classical-ml/` — KNN, linear classifiers (SVM, Softmax, Perceptron, Logistic Regression), Naive Bayes, Decision Trees, Regression (Linear/LASSO/Logistic)
 - `02-deep-learning-cv/` — CNN architecture zoo (14 architectures), image classification pipeline, YOLO object detection, RNN for time series
 - `03-graph-network/` — Girvan-Newman community detection, web mining/PageRank-style project
 - `04-probabilistic/` — EM algorithm for missing data imputation, GMM estimation, hyperparameter tuning + dimensionality reduction
