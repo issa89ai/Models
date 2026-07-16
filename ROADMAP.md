@@ -10,7 +10,7 @@ Full index of every model encountered in coursework, where the code lives now, a
 | Perceptron / SVM / Softmax / Logistic Regression | CS596 A1 | `01-classical-ml/linear-classifiers/` | completed | Try a genuinely non-linearly-separable 2D toy dataset to visualize exactly where a straight-line boundary fails |
 | Naive Bayes | CS566 (Pacman AI) | `01-classical-ml/naive-bayes/` | completed | Try on a text dataset (e.g. spam classification), where the independence assumption is a more natural fit than on correlated numeric features |
 | Decision Trees | CS505 A1 | `01-classical-ml/decision-trees/` | completed | Add pruning + compare gini vs entropy split criteria |
-| Linear/LASSO/Logistic Regression | CS504 | `01-classical-ml/regression/` | ported | Cross-language comparison doc: same dataset in R vs Python vs PyTorch vs sklearn |
+| Linear/LASSO Regression | CS504 | `01-classical-ml/regression/` | completed | Cross-language comparison: same dataset in R vs Python vs PyTorch vs sklearn |
 | SVM (theory only, CS596 lecture) | CS596 | — | todo | Kernel trick demo (RBF vs linear) on non-linearly separable toy data |
 | Bayesian Decision Theory / MLE | CS509 lectures | — | todo | Small notebook deriving MLE for Gaussian, compare to sklearn estimate |
 | HMM / Bayesian Networks | CS509 lectures | — | todo | Implement a simple HMM (Viterbi) — natural extension of the EM work already done |
