@@ -1,6 +1,6 @@
 # Roadmap: Models Studied in the Master's
 
-Full index of every model encountered in coursework, where the code lives now, and what's worth doing next to deepen each one. Status: `ported` = code copied as-is from coursework, untouched; `completed` = worked through hands-on (run, visualized, and written up in that folder's `SUMMARY.md`); `polished` = has its own full repo; `todo` = studied conceptually but not implemented standalone.
+Full index of every model encountered in coursework, where the code lives now, and what's worth doing next to deepen each one. Status: `ported` = code copied as-is from coursework, untouched; `in progress` = partially worked through hands-on, more remains; `completed` = worked through hands-on (run, visualized, and written up in that folder's `SUMMARY.md`); `polished` = has its own full repo; `todo` = studied conceptually but not implemented standalone.
 
 ## 01 — Classical ML
 
@@ -19,8 +19,8 @@ Full index of every model encountered in coursework, where the code lives now, a
 
 | Model | Course | Location | Status | Next step |
 |---|---|---|---|---|
-| CNN architecture zoo (LeNet, VGG, ResNet, PreActResNet, ResNeXt, DenseNet, DPN, GoogLeNet, MobileNet/v2, ShuffleNet/v2, SENet, EfficientNet, PNASNet) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | ported | Train 3-4 of these on CIFAR-10 with identical hyperparameters, compare accuracy/params/latency |
-| Fully-connected NN (PyTorch) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | ported | Baseline comparison against the CNNs above |
+| CNN architecture zoo (LeNet, VGG, ResNet, PreActResNet, ResNeXt, DenseNet, DPN, GoogLeNet, MobileNet/v2, ShuffleNet/v2, SENet, EfficientNet, PNASNet) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | in progress | LeNet vs. FC net done (see SUMMARY.md); still need to train 2-3 more of these (e.g. ResNet, VGG) on the same data to compare against each other, not just against a non-convolutional baseline |
+| Fully-connected NN (PyTorch) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | completed | Original file was broken (Python 2 code, shape mismatch); rewrote from scratch and compared against LeNet -- FC net overfits faster despite 13x more parameters |
 | Image classifier pipeline (VOC dataloader) | CS596 A3 | `02-deep-learning-cv/image-classifier-pipeline/` | ported | Swap in one CNN from the zoo above as backbone |
 | YOLO object detection (ResNet-YOLO) | CS596 final exam / P3 Ayoub | `02-deep-learning-cv/object-detection-yolo/` | ported | Re-run eval_voc.py to get current mAP baseline; try a modern backbone |
 | RNN (time series) | CS596 final project | `02-deep-learning-cv/rnn-time-series/`, also `cs596-deep-learning-rnn-project` | ported + polished | Already has a dedicated repo — use that for further iteration |
