@@ -1,4 +1,4 @@
-# CNN Architecture Zoo — What We Learned (Part 1: LeNet vs. Fully-Connected)
+# CNN Architecture Zoo — What We Learned
 
 ## Status of the original files
 
@@ -75,13 +75,83 @@ about final accuracy — it's about achieving comparable or better performance
 with ~13x fewer parameters, which directly translates into better resistance
 to overfitting on limited data.
 
+## Concept: ResNet — solving the "deeper should be better, but isn't" problem
+
+Plain deep CNNs (just stacking more convolution layers) often trained *worse*
+than shallower ones — not from overfitting, but because gradients became too
+weak by the time they backpropagated through many layers to reach the early
+ones (the "vanishing gradient" problem). ResNet's fix, visible directly in
+`models/resnet.py`:
+```python
+out += self.shortcut(x)   # the skip connection
+```
+Adding the block's input directly to its output gives gradients a direct path
+during backpropagation, bypassing the convolutions if needed — this is what
+made training genuinely deep networks (18+ layers) reliable. ResNet also uses
+`BatchNorm2d` (normalizes each layer's outputs to stable mean/variance within
+every mini-batch), which LeNet has neither of.
+
+## Concept: MobileNet — efficiency via depthwise separable convolutions
+
+Instead of one standard convolution doing two jobs at once (mixing spatial
+neighbors *and* mixing across channels simultaneously), MobileNet splits this
+into two cheaper steps, visible in `models/mobilenet.py`:
+```python
+self.conv1 = nn.Conv2d(in_planes, in_planes, kernel_size=3, ..., groups=in_planes, ...)  # depthwise: spatial only, per-channel
+self.conv2 = nn.Conv2d(in_planes, out_planes, kernel_size=1, ...)                        # pointwise: channel-mixing only
+```
+This approximates a standard convolution at a fraction of the compute cost —
+the reason MobileNet exists is to run CNNs on phones/embedded devices.
+
+## Experiment: LeNet vs. ResNet18 vs. MobileNet, same CIFAR-10 setup
+
+Same 5,000 train / 1,000 test subset, 10 epochs, Adam optimizer, all three
+trained in the same run for a directly comparable result:
+
+```
+LeNet:     accuracy=0.4570, parameters=62,006
+ResNet18:  accuracy=0.5440, parameters=11,173,962
+MobileNet: accuracy=0.3970, parameters=3,217,226
+```
+
+**ResNet18 wins on raw accuracy**, consistent across repeated runs (0.546 and
+0.544 in two separate runs) — depth + skip connections + batch norm is the
+strongest combination tested here, even though it has ~180x more parameters
+than LeNet. Crucially, unlike the FC net (which overfit badly with far fewer
+extra parameters, 13x LeNet's count), ResNet18 does *not* overfit despite
+having *more* extra parameters than the FC net did. **The lesson: raw
+parameter count isn't what causes overfitting — unstructured parameters
+(FC net) overfit far more easily than a much larger number of
+well-structured ones (ResNet18's convolutions + skip connections + batch
+norm).**
+
+**MobileNet actually underperformed LeNet here (0.397 vs. 0.457)** — the
+opposite of what "efficient, modern architecture" might suggest. Depthwise
+separable convolutions trade away some per-layer representational capacity
+in exchange for efficiency, a tradeoff that pays off at the scale MobileNet
+was designed for (millions of ImageNet images, many training epochs, real
+mobile deployment constraints) — but on this tiny 5,000-image/10-epoch demo,
+it simply didn't get enough signal to reach its stride. MobileNet isn't
+"worse" than LeNet in general — it's optimized for a different regime than
+the one tested here.
+
+**A metric worth flagging as misleading**: we also computed
+"accuracy-per-million-parameters" as an efficiency score, and LeNet "won" by
+a huge margin (7.37 vs. ResNet18's 0.05 and MobileNet's 0.12) — but this is
+mostly an artifact of LeNet's parameter count being a tiny fraction of one
+million, which inflates the ratio when dividing by a number much less than 1.
+It doesn't mean LeNet is genuinely the most efficient architecture in any
+real engineering sense. A fairer efficiency comparison would use FLOPs
+(actual compute cost) rather than raw parameter count, or only compare models
+of similar parameter scale.
+
 ## What's not yet done
 
-This is one architecture (LeNet) out of the 14 in `models/`, compared only
-against a plain FC baseline. The original ROADMAP suggestion — training
-3-4 of the CNN zoo architectures (e.g. ResNet, VGG, MobileNet) with identical
-hyperparameters to compare accuracy/parameter-count/speed against each other,
-not just against a non-convolutional baseline — is still open.
+3 of the 14 architectures in `models/` have now been compared (LeNet,
+ResNet18, MobileNet), satisfying the original ROADMAP suggestion of testing
+3-4. Remaining architectures (VGG, DenseNet, GoogLeNet, ShuffleNet, SENet,
+EfficientNet, PNASNet, DPN, ResNeXt, PreActResNet) are untouched but available
+in `models/` if deeper comparison is wanted later.
 
 ## Files in this folder
 
@@ -89,5 +159,7 @@ not just against a non-convolutional baseline — is still open.
   PreActResNet, ResNeXt, DenseNet, DPN, GoogLeNet, MobileNet/v2,
   ShuffleNet/v2, SENet, EfficientNet, PNASNet), untouched
 - `FullyConnectedNeuralNetworkPyTorch.py` — original file, broken (see above), reference only
-- `test_cnn_vs_fc.py` — our LeNet vs. FC net comparison, described above
+- `test_cnn_vs_fc.py` — LeNet vs. FC net comparison
+- `test_resnet_vs_lenet.py` — LeNet vs. ResNet18 comparison
+- `test_all_cnns_comparison.py` — LeNet vs. ResNet18 vs. MobileNet, all trained in one run
 - `main.py`, `utils.py` — original CS596 A2 training utilities

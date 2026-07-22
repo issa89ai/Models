@@ -19,7 +19,7 @@ Full index of every model encountered in coursework, where the code lives now, a
 
 | Model | Course | Location | Status | Next step |
 |---|---|---|---|---|
-| CNN architecture zoo (LeNet, VGG, ResNet, PreActResNet, ResNeXt, DenseNet, DPN, GoogLeNet, MobileNet/v2, ShuffleNet/v2, SENet, EfficientNet, PNASNet) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | in progress | LeNet vs. FC net done (see SUMMARY.md); still need to train 2-3 more of these (e.g. ResNet, VGG) on the same data to compare against each other, not just against a non-convolutional baseline |
+| CNN architecture zoo (LeNet, VGG, ResNet, PreActResNet, ResNeXt, DenseNet, DPN, GoogLeNet, MobileNet/v2, ShuffleNet/v2, SENet, EfficientNet, PNASNet) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | completed | LeNet, ResNet18, and MobileNet compared (see SUMMARY.md) -- ResNet18 wins on accuracy despite far more parameters (structure > raw count), MobileNet underperforms at this tiny scale (needs more data/epochs to show its efficiency advantage). Remaining 11 architectures (VGG, DenseNet, etc.) untouched if deeper comparison wanted later |
 | Fully-connected NN (PyTorch) | CS596 A2 | `02-deep-learning-cv/cnn-architecture-zoo/` | completed | Original file was broken (Python 2 code, shape mismatch); rewrote from scratch and compared against LeNet -- FC net overfits faster despite 13x more parameters |
 | Image classifier pipeline (VOC dataloader) | CS596 A3 | `02-deep-learning-cv/image-classifier-pipeline/` | ported | Swap in one CNN from the zoo above as backbone |
 | YOLO object detection (ResNet-YOLO) | CS596 final exam / P3 Ayoub | `02-deep-learning-cv/object-detection-yolo/` | ported | Re-run eval_voc.py to get current mAP baseline; try a modern backbone |
