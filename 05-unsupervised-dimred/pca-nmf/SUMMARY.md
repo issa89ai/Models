@@ -1,4 +1,4 @@
-# PCA — What We Learned
+# PCA and NMF — What We Learned
 
 ## Status of the original files
 
@@ -49,9 +49,60 @@ recognizable; by 20 components (89.4%) it's nearly indistinguishable from
 the original. The variance percentage directly corresponds to visible image
 quality.
 
+## NMF vs. PCA: the non-negativity constraint
+
+PCA's components can be negative, meaning components can represent patterns
+that cancel/subtract, producing "holistic" representations. NMF forces
+every value (data, components, weights) to be non-negative -- since nothing
+can subtract, NMF is mathematically forced to build representations
+additively, tending to isolate distinct, localized **parts** rather than
+diffuse global patterns (the well-known effect originally demonstrated with
+face images: PCA gives ghostly whole-face components, NMF gives
+eye/nose/mouth-like parts).
+
+**Experiment 1 -- downstream classification task** (`PCA_NMF.ipynb`'s
+original approach, using the built-in breast cancer dataset, 30 features
+-> 10 components each):
+```
+Logistic Regression accuracy, raw (30 features): 0.9825
+Logistic Regression accuracy, PCA (10 components): 0.9825   <- identical to raw
+Logistic Regression accuracy, NMF (10 components): 0.8860   <- ~10 points lower
+```
+PCA compressed 30 features to 10 with **zero loss** in downstream accuracy --
+it's mathematically the optimal linear compression for a given number of
+dimensions (directly maximizes captured variance). NMF, given the same
+number of components, loses real accuracy: its non-negativity constraint is
+a genuine restriction that trades some compression efficiency for
+interpretability.
+
+**A real bug worth noting**: `MinMaxScaler` is correctly fit on the training
+set only (fitting on test data would be leakage), but the test set naturally
+contains a few feature values slightly outside the training set's observed
+range, producing a handful of small negative values after scaling -- which
+NMF's strict non-negativity check rejects. Fixed by clipping the *scaled
+test data* (not the raw data) to `>= 0` before the NMF transform. This isn't
+a sign anything was wrong with the split or scaling -- it's expected
+real-world behavior whenever a scaler's fitted range doesn't perfectly
+cover held-out data.
+
+**Experiment 2 -- visual component comparison** (digits dataset,
+`pca_vs_nmf_components.png`): PCA's components are diffuse red/blue patterns
+spanning the whole 8x8 grid -- hard to describe as "a stroke" or "a part."
+NMF's components are visibly more localized -- sparse bright blobs
+concentrated in specific regions (one is even recognizable as a ring/loop
+shape) -- a direct visual confirmation of the parts-based vs. holistic
+distinction, using real data rather than just theory.
+
+**Overall conclusion**: NMF trades raw predictive/compression efficiency for
+genuinely more interpretable, parts-based components -- a real, visible, and
+numerically concrete interpretability-vs-performance tradeoff.
+
 ## Files in this folder
 
 - `Dimenionality reduction.ipynb`, `PCA_Loading Matrix.ipynb`, `PCA_NMF.ipynb`
-  -- original CS504 coursework notebooks (reference the unavailable external CSV)
-- `test_pca_digits.py` -- our standalone PCA experiment on digits, described above
-- `pca_digits_analysis.png`, `pca_reconstruction.png` -- saved plots
+  -- original CS504 coursework notebooks (PCA_NMF.ipynb's breast-cancer +
+  downstream-classifier approach was reused directly; the others reference
+  the unavailable external CSV)
+- `test_pca_digits.py` -- standalone PCA experiment on digits, described above
+- `test_pca_vs_nmf.py` -- PCA vs. NMF comparison (breast cancer + digits), described above
+- `pca_digits_analysis.png`, `pca_reconstruction.png`, `pca_vs_nmf_components.png` -- saved plots
