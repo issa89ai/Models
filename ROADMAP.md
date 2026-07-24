@@ -43,7 +43,7 @@ Full index of every model encountered in coursework, where the code lives now, a
 | Model | Course | Location | Status | Next step |
 |---|---|---|---|---|
 | EM algorithm — missing data imputation | CS509 final project | `04-probabilistic/missing-data-em/`, also `cs509-missing-data-imputation-em` | ported + polished | Use polished repo for further work |
-| GMM estimation | CS509 PA A3 | `04-probabilistic/gmm-estimation/` | ported | Compare EM-based GMM fit vs k-means initialization |
+| GMM estimation | CS509 PA A3 | `04-probabilistic/gmm-estimation/` | completed | Fitted 4-component 3D GMM (correctly recovers known cluster shapes); BIC/AIC model selection correctly identifies the true n=3 components in synthetic test data (see SUMMARY.md) |
 | Hyperparameter tuning + dimensionality reduction (iris) | CS509 PR A4 | `04-probabilistic/hyperparameter-tuning-dimred/` | ported | Extend grid/randomized/halving search comparison to a larger dataset |
 | HMM | CS509 lectures | — | todo | See classical ML section above |
 
