@@ -51,7 +51,7 @@ Full index of every model encountered in coursework, where the code lives now, a
 
 | Model | Course | Location | Status | Next step |
 |---|---|---|---|---|
-| PCA (+ loading matrix) | CS504 | `05-unsupervised-dimred/pca-nmf/` | ported | Apply to a high-dimensional real dataset, visualize explained variance |
+| PCA (+ loading matrix) | CS504 | `05-unsupervised-dimred/pca-nmf/` | completed | Applied to digits dataset (64 features); 21 components retain 90% of variance, 2 components alone visibly separate digit classes despite being unsupervised (see SUMMARY.md) |
 | NMF | CS504 | `05-unsupervised-dimred/pca-nmf/` | ported | Compare NMF vs PCA components for interpretability on same data |
 | Topic Modeling (Python + R) | CS504 | `05-unsupervised-dimred/topic-modeling/` | ported | Try LDA vs NMF-based topic modeling on same text corpus |
 | K-means / hierarchical clustering / DBSCAN | CS505 | — | todo | Referenced in data mining coursework — add standalone comparison notebook |
