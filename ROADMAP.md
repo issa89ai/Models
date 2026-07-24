@@ -32,8 +32,8 @@ Full index of every model encountered in coursework, where the code lives now, a
 
 | Model | Course | Location | Status | Next step |
 |---|---|---|---|---|
-| Girvan-Newman community detection | CS536 A1 | `03-graph-network/community-detection/` | ported | Compare against greedy-modularity on the same graph |
-| Web mining project (PageRank-style) | CS536 | `03-graph-network/web-mining-project/`, also `cs536-web-mining-structure-analysis` | ported + polished | Use the polished repo for deeper analysis |
+| Girvan-Newman community detection | CS536 A1 | `03-graph-network/community-detection/` | completed | Ran on Zachary's Karate Club; recovers the club's real historical 2-faction split from pure graph structure (see SUMMARY.md) |
+| Web mining project (PageRank vs. degree centrality, greedy-modularity) | CS536 | `03-graph-network/web-mining-project/`, also `cs536-web-mining-structure-analysis` | completed | Compared PageRank vs. degree centrality on a real Twitter ego-network (they diverge at rank 4); found this denser graph's achievable modularity is structurally lower than the karate club's (see SUMMARY.md) |
 | Centrality measures | CS536 lectures | — | todo | Add betweenness/closeness centrality notebook |
 | GNN (theory) | CS536 lectures | — | todo | Simple GCN node-classification demo on Karate Club or Cora |
 | Graph traversal / MST / shortest path | CS571 | — | todo (proofs only) | CS571 was pure theory — could implement Kruskal/Dijkstra as a companion to the proofs |
